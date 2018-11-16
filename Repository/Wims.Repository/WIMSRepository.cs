@@ -1,52 +1,55 @@
-﻿using System;
+﻿using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
 
 namespace WIMS.Repository
 {
-    public class WIMSRepository
+    public abstract class WimsRepository<T> where T: Entity
     {
-        private String EndpointUrl { get; set; }
-        private String PrimaryKey { get; set; }
+        private String endpointUrl { get; set; }
+        private String primaryKey { get; set; }
 
-        internal String DatabaseName = "Inventory";
-        internal DocumentClient docClient;
+        protected String databaseName;
+        protected DocumentClient docClient;
 
-        internal static String DemoFolderPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"DemoData\");
-
-        public WIMSRepository(string EndpointUrl, string PrimaryKey, string DatabaseName)
+        protected WimsRepository(string endpointUrlParam, string primaryKeyParam, string databaseNameParam)
         {
-            this.EndpointUrl = EndpointUrl;
-            this.PrimaryKey = PrimaryKey;
-            this.DatabaseName = DatabaseName;
-            this.docClient = new DocumentClient(new Uri(EndpointUrl), PrimaryKey);
+            endpointUrl = endpointUrlParam;
+            primaryKey = primaryKeyParam;
+            databaseName = databaseNameParam;
+            docClient = new DocumentClient(new Uri(endpointUrl), primaryKey);
         }
+
+        protected abstract string CollectionName { get;  }
+
         public async Task CreateDatabase()
         {
-            await this.docClient.CreateDatabaseIfNotExistsAsync(new Database { Id = this.DatabaseName });
-        }
-        public async Task EnsureCollection(string CollectionName)
-        {
-            await this.docClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(this.DatabaseName), new DocumentCollection { Id = CollectionName});
+            await docClient.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseName });
         }
 
-        public async Task CreateEntityIfNotExists(string collectionName, Entity entity)
+        public async Task EnsureCollection()
+        {
+            Uri databaseUri = UriFactory.CreateDatabaseUri(databaseName);
+            await docClient.CreateDocumentCollectionIfNotExistsAsync(databaseUri,
+                 new DocumentCollection { Id = CollectionName });
+        }
+
+        protected async Task CreateEntityIfNotExists(T entity)
         {
             try
             {
-                await docClient.ReadDocumentAsync(UriFactory.CreateDocumentUri(this.DatabaseName, collectionName, entity.ID.ToString()));
+                await docClient.ReadDocumentAsync(CreateDocumentUri(entity));
             }
             catch (DocumentClientException de)
             {
                 if (de.StatusCode == HttpStatusCode.NotFound)
                 {
-                    await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(this.DatabaseName, collectionName), entity);
+                    Uri documentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName);
+                    await docClient.CreateDocumentAsync(documentCollectionUri, entity);
                 }
                 else
                 {
@@ -55,22 +58,38 @@ namespace WIMS.Repository
             }
         }
 
-        public async Task AddEntities(string collectionName, Entity[] entities)
+        protected Uri CreateDocumentUri(T entity)
         {
-            foreach (Entity entity in entities)
+            return UriFactory.CreateDocumentUri(databaseName, CollectionName, entity.ID.ToString());
+        }
+
+        public async Task AddEntities(T[] entities)
+        {
+            foreach (T entity in entities)
             {
-                await this.CreateEntityIfNotExists(collectionName, entity);
+                await CreateEntityIfNotExists(entity);
             }
         }
 
-        public List<Entity> GetAllRecordsFromCollection(string collectionName)
+        public List<Entity> GetAllRecordsFromCollection()
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
 
-            IQueryable<Entity> query = this.docClient.CreateDocumentQuery<Entity>(
-                    UriFactory.CreateDocumentCollectionUri(this.DatabaseName, collectionName), queryOptions);
+            IQueryable<Entity> query = docClient.CreateDocumentQuery<Entity>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName), queryOptions);
 
             return query.ToList();
+        }
+
+        public T GetEntity(Guid id)
+        {
+            FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
+
+            IQueryable<T> query = this.docClient.CreateDocumentQuery<T>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName), queryOptions)
+                    .Where(i => i.ID == id);
+
+            return query.Take(1).AsEnumerable().First();
         }
     }
 }

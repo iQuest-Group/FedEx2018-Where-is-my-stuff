@@ -13,7 +13,7 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
     internal class RecognizedTagsFilesProcessor : IDisposable
     {
         private bool disposed;
-        private WIMSRepository repository;
+        private ProductRepository productsRepository;
         private readonly string inventoryName;
         private Timer fileCheckerTimer;
 
@@ -26,12 +26,12 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
         {
             try
             {
-                repository = new WIMSRepository(
+                productsRepository = new ProductRepository (
                     Settings.Default.AzureCosmosDBEndpointUrl,
                     Settings.Default.AzureCosmodBDPrimaryKey,
                     Settings.Default.AzureCosmosDatabaseName);
 
-                await repository.EnsureCollection("Products");
+                await productsRepository.EnsureCollection();
 
                 fileCheckerTimer = new Timer(Settings.Default.FileCheckerTimerIntervalInSeconds * 2000)
                 {
