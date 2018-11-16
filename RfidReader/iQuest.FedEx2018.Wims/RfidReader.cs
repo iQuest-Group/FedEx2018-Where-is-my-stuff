@@ -1,17 +1,21 @@
-﻿using RRU4DotNet;
+﻿using iQuest.FedEx2018.Wims.Properties;
+using RRU4DotNet;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace iQuest.FedEx2018.Wims
 {
     internal class RfidReader : IDisposable
     {
         private readonly CRRU4 reader;
-        bool disposed = false;
+        private bool disposed = false;
+        private readonly HashSet<string> tagsRead = new HashSet<string>();
 
         internal RfidReader()
         {
             reader = new CRRU4();
-            //reader.SetResultHandlerSyncGetEPCs(DelegateResultHandlerSyncGetEPCs);
             reader.SetResultHandlerASyncGetEPCs(ResultHandlerASyncGetEPCsSync,
                 ResultHandlerASyncGetEPCsASync);
 
@@ -29,7 +33,7 @@ namespace iQuest.FedEx2018.Wims
             }
             else
             {
-                Console.WriteLine("Erro connecting");
+                Console.WriteLine("Error connecting");
             }
         }
 
@@ -50,6 +54,10 @@ namespace iQuest.FedEx2018.Wims
             foreach (tEPCListEntry epcListEnry in rgEPCList)
             {
                 Console.WriteLine(epcListEnry.pEPC);
+                if (epcListEnry.pEPC.ToString() != string.Empty)
+                {
+                    tagsRead.Add(epcListEnry.pEPC.ToString());
+                }
             }
             Console.WriteLine();
         }
@@ -59,6 +67,26 @@ namespace iQuest.FedEx2018.Wims
             if (reader.ASyncGetEPCs() == tReaderErrorCode.REC_NoError)
             {
                 Console.WriteLine("Read started!");
+            }
+        }
+
+        internal void Save()
+        {
+            string fileName = string.Format("Tags {0}.txt", DateTime.Now.ToString("dd-mm-yyyy hh_mm_ss ffff"));
+            string filePath = Path.Combine(Settings.Default.TagsReportFolder, fileName);
+
+            try
+            {
+                File.WriteAllLines(filePath,
+                    new List<string>(tagsRead).ToArray());
+                Console.WriteLine(string.Format("Data saved to path '{0}'", filePath));
+                tagsRead.Clear();
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(string.Format("Exception during saving to {0}: {1}",
+                    fileName,
+                    exc.Message));
             }
         }
 
