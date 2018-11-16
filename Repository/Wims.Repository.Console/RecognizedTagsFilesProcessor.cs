@@ -1,6 +1,9 @@
 ﻿using CosmosDBGettingStarted_WIMS.Properties;
 using Microsoft.Azure.Documents;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using WIMS.Repository;
@@ -53,7 +56,27 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
 
         private void CheckFiles(object sender, ElapsedEventArgs e)
         {
-            Console.WriteLine("Checking files");
+            if (!File.Exists(Path.Combine(Settings.Default.TagsFilesFolder, 
+                Settings.Default.EndInventoryFileName)))
+            {
+                Console.WriteLine("No end inventory file detected");
+                return;
+            }
+            Console.WriteLine("Inventory file detected");
+
+            HashSet<string> tagCodesSet = new HashSet<string>();
+            string[] tagFilesPaths = Directory.GetFiles(Settings.Default.TagsFilesFolder);
+            foreach (string tagFilePath in tagFilesPaths)
+            {
+                foreach (string tagCode in File.ReadLines(tagFilePath))
+                {
+                    tagCodesSet.Add(tagCode);
+                }
+            }
+
+            string tagsString = tagCodesSet.Aggregate((aggr, next) =>
+                aggr != string.Empty ? aggr + ", " + next : next);
+            Console.WriteLine("Tags codes found: " + tagsString);
         }
 
         private void WriteToConsoleAndPromptToContinue(string format, params object[] args)

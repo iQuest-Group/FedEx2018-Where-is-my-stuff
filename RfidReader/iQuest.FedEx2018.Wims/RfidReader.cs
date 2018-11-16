@@ -3,7 +3,6 @@ using RRU4DotNet;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace iQuest.FedEx2018.Wims
 {

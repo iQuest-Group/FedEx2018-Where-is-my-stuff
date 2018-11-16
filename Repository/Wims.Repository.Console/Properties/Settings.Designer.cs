@@ -62,10 +62,19 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int FileCheckerTimerIntervalInSeconds {
             get {
                 return ((int)(this["FileCheckerTimerIntervalInSeconds"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("endInventory.txt")]
+        public string EndInventoryFileName {
+            get {
+                return ((string)(this["EndInventoryFileName"]));
             }
         }
     }
