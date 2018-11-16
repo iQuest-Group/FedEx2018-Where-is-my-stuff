@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wims.Repository", "Wims.Repository\Wims.Repository.csproj", "{67103267-3152-47CF-81D0-300018F6F91D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "iQuest.Fedex2018.Wims.Repository", "Wims.Repository\iQuest.Fedex2018.Wims.Repository.csproj", "{67103267-3152-47CF-81D0-300018F6F91D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wims.Repository.Console", "Wims.Repository.Console\Wims.Repository.Console.csproj", "{123028F2-F35A-462E-A8BF-380A599422AE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iQuest.Fedex2018.Wims.TagFilesProcessor", "Wims.Repository.Console\iQuest.Fedex2018.Wims.TagFilesProcessor.csproj", "{123028F2-F35A-462E-A8BF-380A599422AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iQuest.Fedex2018.Wims.StockProvisioner", "iQuest.Fedex2018.Wims.StockProvisioner\iQuest.Fedex2018.Wims.StockProvisioner.csproj", "{F2661B99-7AE4-4D9F-8929-9D082D09F8E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{123028F2-F35A-462E-A8BF-380A599422AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{123028F2-F35A-462E-A8BF-380A599422AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{123028F2-F35A-462E-A8BF-380A599422AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2661B99-7AE4-4D9F-8929-9D082D09F8E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2661B99-7AE4-4D9F-8929-9D082D09F8E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2661B99-7AE4-4D9F-8929-9D082D09F8E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2661B99-7AE4-4D9F-8929-9D082D09F8E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

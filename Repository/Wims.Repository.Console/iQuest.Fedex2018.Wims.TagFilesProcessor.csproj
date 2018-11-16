@@ -85,9 +85,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Wims.Repository\Wims.Repository.csproj">
+    <ProjectReference Include="..\Wims.Repository\iQuest.Fedex2018.Wims.Repository.csproj">
       <Project>{67103267-3152-47cf-81d0-300018f6f91d}</Project>
-      <Name>Wims.Repository</Name>
+      <Name>iQuest.Fedex2018.Wims.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

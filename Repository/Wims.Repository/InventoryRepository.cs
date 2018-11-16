@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WIMS.Repository
+namespace iQuest.Fedex2018.Wims.Repository
 {
     public class InventoryRepository : WimsRepository<Inventory>
     {

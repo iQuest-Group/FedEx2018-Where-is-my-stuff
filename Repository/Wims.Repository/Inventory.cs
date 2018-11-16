@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WIMS.Repository
+namespace iQuest.Fedex2018.Wims.Repository
 {
     public class Inventory: Entity
     {

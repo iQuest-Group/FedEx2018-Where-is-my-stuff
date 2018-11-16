@@ -1,4 +1,5 @@
 ﻿using CosmosDBGettingStarted_WIMS.Properties;
+using iQuest.Fedex2018.Wims.Repository;
 using Microsoft.Azure.Documents;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using WIMS.Repository;
 
 namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace WIMS.Repository
+namespace iQuest.Fedex2018.Wims.Repository
 {
     public class Product: Entity
     {

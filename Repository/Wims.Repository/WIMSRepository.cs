@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WIMS.Repository
+namespace iQuest.Fedex2018.Wims.Repository
 {
     public abstract class WimsRepository<T> where T: Entity
     {
