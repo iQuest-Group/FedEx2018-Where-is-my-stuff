@@ -1,33 +1,41 @@
-﻿using Microsoft.Azure.Documents;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 
 namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
 {
-    class Program
+    static class Program
     {
         private static readonly string helpString = "Type x for exit";
 
         static void Main(string[] args)
         {
-            RecognizedTagsFilesProcessor recognizedTagsFilesProcessor =
-                new RecognizedTagsFilesProcessor();
+            Console.WriteLine("Tags file processor starting...");
+            Console.WriteLine(helpString);
+            Console.WriteLine();
 
-            Task.WaitAll(recognizedTagsFilesProcessor.Start());
+            Console.WriteLine("Please provide the inventory name");
+            string inventoryName = Console.ReadLine();
+            Console.WriteLine();
 
-            while (true)
+            using (RecognizedTagsFilesProcessor recognizedTagsFilesProcessor =
+                new RecognizedTagsFilesProcessor(inventoryName))
             {
-                ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-                if (consoleKeyInfo.KeyChar == 'x')
+
+                Task.WaitAll(recognizedTagsFilesProcessor.Start());
+
+                while (true)
                 {
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine(helpString);
+                    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+                    if (consoleKeyInfo.KeyChar == 'x')
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine(helpString);
+                    }
                 }
             }
-
         }
     }
 }

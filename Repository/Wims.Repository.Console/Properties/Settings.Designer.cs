@@ -25,15 +25,6 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string InventoryName {
-            get {
-                return ((string)(this["InventoryName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://fedex2018-wims.documents.azure.com:443/")]
         public string AzureCosmosDBEndpointUrl {
             get {
@@ -57,6 +48,24 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         public string AzureCosmodBDPrimaryKey {
             get {
                 return ((string)(this["AzureCosmodBDPrimaryKey"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Work\\Fedex\\2018\\TagsFiles")]
+        public string TagsFilesFolder {
+            get {
+                return ((string)(this["TagsFilesFolder"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int FileCheckerTimerIntervalInSeconds {
+            get {
+                return ((int)(this["FileCheckerTimerIntervalInSeconds"]));
             }
         }
     }

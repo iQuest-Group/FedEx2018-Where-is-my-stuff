@@ -25,7 +25,7 @@ namespace iQuest.FedEx2018.Wims.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("D:\\Work\\Fedex\\2018\\TagsFiles")]
         public string TagsReportFolder {
             get {
                 return ((string)(this["TagsReportFolder"]));

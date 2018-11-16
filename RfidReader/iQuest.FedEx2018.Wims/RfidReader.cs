@@ -120,7 +120,7 @@ namespace iQuest.FedEx2018.Wims
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(string.Format("Exception during screating end inventory file: {0}",
+                    Console.WriteLine(string.Format("Exception during creating end inventory file: {0}",
                         exc.Message));
                 }
             }
@@ -128,5 +128,4 @@ namespace iQuest.FedEx2018.Wims
             disposed = true;
         }
     }
-
 }

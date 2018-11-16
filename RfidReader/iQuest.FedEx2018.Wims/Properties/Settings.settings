@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="TagsReportFolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)" />
+      <Value Profile="(Default)">D:\Work\Fedex\2018\TagsFiles</Value>
     </Setting>
   </Settings>
 </SettingsFile>
