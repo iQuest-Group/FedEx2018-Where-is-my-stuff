@@ -79,8 +79,11 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
                     Settings.Default.EndInventoryFileName)))
                 {
                     Console.WriteLine("No end inventory file detected");
+                    filesCurrentlyProcessed = false;
                     return;
                 }
+
+                Console.WriteLine();
                 Console.WriteLine("Inventory file detected");
 
                 GatherTagsFromFiles();
@@ -124,7 +127,11 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
 
         private void DeleteFiles()
         {
-
+            DirectoryInfo di = new DirectoryInfo(Settings.Default.TagsFilesFolder);
+            foreach (FileInfo file in di.GetFiles())
+            {
+                file.Delete();
+            }
         }
 
         private void WriteToConsoleAndPromptToContinue(string format, params object[] args)

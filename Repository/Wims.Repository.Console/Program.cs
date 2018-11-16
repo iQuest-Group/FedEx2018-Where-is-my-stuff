@@ -5,7 +5,7 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
 {
     static class Program
     {
-        private static readonly string helpString = "Type x for exit";
+        private static readonly string helpString = "Type 'n' for new inventory, 'x' for exit";
 
         static void Main(string[] args)
         {
@@ -13,26 +13,35 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
             Console.WriteLine(helpString);
             Console.WriteLine();
 
-            Console.WriteLine("Please provide the inventory name");
-            string inventoryName = Console.ReadLine();
-            Console.WriteLine();
-
-            using (RecognizedTagsFilesProcessor recognizedTagsFilesProcessor =
-                new RecognizedTagsFilesProcessor(inventoryName))
+            bool doInventory = true;
+            while (doInventory)
             {
+                Console.WriteLine("Please provide the inventory name");
+                string inventoryName = Console.ReadLine();
+                Console.WriteLine();
 
-                Task.WaitAll(recognizedTagsFilesProcessor.Start());
-
-                while (true)
+                using (RecognizedTagsFilesProcessor recognizedTagsFilesProcessor =
+                    new RecognizedTagsFilesProcessor(inventoryName))
                 {
-                    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-                    if (consoleKeyInfo.KeyChar == 'x')
+
+                    Task.WaitAll(recognizedTagsFilesProcessor.Start());
+
+                    while (true)
                     {
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine(helpString);
+                        ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+                        if (consoleKeyInfo.KeyChar == 'x')
+                        {
+                            doInventory = false;
+                            break;
+                        }
+                        else if (consoleKeyInfo.KeyChar == 'n')
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine(helpString);
+                        }
                     }
                 }
             }

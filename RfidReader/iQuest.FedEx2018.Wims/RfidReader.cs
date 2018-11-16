@@ -96,6 +96,22 @@ namespace iQuest.FedEx2018.Wims
             return Path.Combine(Settings.Default.TagsReportFolder, fileName);
         }
 
+        internal void FinishInventory()
+        {
+            string endInventoryFilePath = GetFilePath(endInventoryFileName);
+
+            try
+            {
+                File.WriteAllText(endInventoryFilePath, "");
+                Console.WriteLine(string.Format("Endinvontory signaled with '{0}'", endInventoryFilePath));
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(string.Format("Exception during creating end inventory file: {0}",
+                    exc.Message));
+            }
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -110,18 +126,7 @@ namespace iQuest.FedEx2018.Wims
             if (disposing && reader != null)
             {
                 reader.DisconnectReader();
-                string endInventoryFilePath = GetFilePath(endInventoryFileName);
-
-                try
-                {
-                    File.WriteAllText(endInventoryFilePath, "");
-                    Console.WriteLine(string.Format("Endinvontory signaled with '{0}'", endInventoryFilePath));
-                }
-                catch (Exception exc)
-                {
-                    Console.WriteLine(string.Format("Exception during creating end inventory file: {0}",
-                        exc.Message));
-                }
+                FinishInventory();
             }
 
             disposed = true;
