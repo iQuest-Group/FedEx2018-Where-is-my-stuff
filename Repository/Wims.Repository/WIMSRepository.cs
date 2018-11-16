@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 
-namespace WIMS_Repository
+namespace WIMS.Repository
 {
     public class WIMSRepository
     {

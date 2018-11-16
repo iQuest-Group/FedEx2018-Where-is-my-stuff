@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
-namespace WIMS_Repository
+namespace WIMS.Repository
 {
     public class Product: Entity
     {

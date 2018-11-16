@@ -5,7 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 
-namespace WIMS_Repository
+namespace WIMS.Repository
 {
     public class Inventory: Entity
     {

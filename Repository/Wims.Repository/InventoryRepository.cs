@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WIMS_Repository
+namespace WIMS.Repository
 {
     public class InventoryRepository: WIMSRepository
     {

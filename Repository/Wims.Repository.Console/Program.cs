@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 
-using System.Net;
 using Microsoft.Azure.Documents;
-using Microsoft.Azure.Documents.Client;
-using WIMS_Repository;
-using Newtonsoft.Json;
+using WIMS.Repository;
 
-namespace CosmosDBGettingStarted_WIMS
+namespace Wims.Repository
 {
     class Program
     {

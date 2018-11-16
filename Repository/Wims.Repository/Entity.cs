@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace WIMS_Repository
+namespace WIMS.Repository
 {
     public class Entity
     {

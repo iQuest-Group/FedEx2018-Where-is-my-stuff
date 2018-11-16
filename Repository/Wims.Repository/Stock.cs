@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace WIMS_Repository
+namespace WIMS.Repository
 {
     public class Stock: Entity
     {
