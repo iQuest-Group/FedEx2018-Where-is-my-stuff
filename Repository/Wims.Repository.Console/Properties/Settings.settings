@@ -3,13 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="AzureCosmosDBEndpointUrl" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://fedex2018-wims.documents.azure.com:443/</Value>
+      <Value Profile="(Default)">https://fedex2018iquesttibi.documents.azure.com:443/</Value>
     </Setting>
     <Setting Name="AzureCosmosDatabaseName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Inventory</Value>
     </Setting>
     <Setting Name="AzureCosmodBDPrimaryKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">j0EEpoNHkH7wfNACiuxT5eucjCju0vOSyl5aTVuwlpfRY2hRylTbf0OjNtGEMkcpRhnB3jL1JhuwLrNLptfnbQ==</Value>
+      <Value Profile="(Default)">rgCBaRtqalPfdtx2CfeH0avCDEQRDvohq44SlrhTPEt2vcnGTuQfqlNjOcBv2SXcbgmNuA9dxTfrhXJPkjAqaQ==</Value>
     </Setting>
     <Setting Name="TagsFilesFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">D:\Work\Fedex\2018\TagsFiles</Value>

@@ -13,9 +13,11 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
     internal class RecognizedTagsFilesProcessor : IDisposable
     {
         private bool disposed;
-        private ProductRepository productsRepository;
+        private InventoryRepository inventoryRepository;
         private readonly string inventoryName;
         private Timer fileCheckerTimer;
+        private HashSet<string> tagCodesSet;
+        private Inventory inventory;
 
         internal RecognizedTagsFilesProcessor(string inventoryNameParam)
         {
@@ -26,19 +28,25 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
         {
             try
             {
-                productsRepository = new ProductRepository (
+                inventoryRepository = new InventoryRepository(
                     Settings.Default.AzureCosmosDBEndpointUrl,
                     Settings.Default.AzureCosmodBDPrimaryKey,
                     Settings.Default.AzureCosmosDatabaseName);
 
-                await productsRepository.EnsureCollection();
+                await inventoryRepository.EnsureCollection();
+                inventory = new Inventory
+                {
+                    ID = inventoryName
+                };
+                inventory = await inventoryRepository.CreateEntityIfNotExists(inventory);
 
                 fileCheckerTimer = new Timer(Settings.Default.FileCheckerTimerIntervalInSeconds * 2000)
                 {
                     AutoReset = true,
                     Enabled = true
                 };
-                fileCheckerTimer.Elapsed += CheckFiles;                
+
+                fileCheckerTimer.Elapsed += ProcessFiles;                
                 fileCheckerTimer.Start();
                 Console.WriteLine(string.Format("File checker timer started with '{0}' seconds interval", Settings.Default.FileCheckerTimerIntervalInSeconds));
             }
@@ -54,7 +62,7 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
             }
         }
 
-        private void CheckFiles(object sender, ElapsedEventArgs e)
+        private void ProcessFiles(object sender, ElapsedEventArgs e)
         {
             if (!File.Exists(Path.Combine(Settings.Default.TagsFilesFolder, 
                 Settings.Default.EndInventoryFileName)))
@@ -64,7 +72,18 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
             }
             Console.WriteLine("Inventory file detected");
 
-            HashSet<string> tagCodesSet = new HashSet<string>();
+            GatherTagsFromFiles();
+
+            Task.WaitAll(UpdateInvetory());
+            Console.WriteLine("Files saved to Azure Cosmos DB");
+
+            DeleteFiles();
+            Console.WriteLine("Tag files deleted");
+        }
+
+        private void GatherTagsFromFiles()
+        {
+            tagCodesSet = new HashSet<string>();
             string[] tagFilesPaths = Directory.GetFiles(Settings.Default.TagsFilesFolder);
             foreach (string tagFilePath in tagFilesPaths)
             {
@@ -77,6 +96,17 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
             string tagsString = tagCodesSet.Aggregate((aggr, next) =>
                 aggr != string.Empty ? aggr + ", " + next : next);
             Console.WriteLine("Tags codes found: " + tagsString);
+        }
+
+        private async Task UpdateInvetory()
+        {
+            string[] newTags = tagCodesSet.ToArray();
+            await inventoryRepository.AddNewTagsToInventory(inventory, newTags);
+        }
+
+        private void DeleteFiles()
+        {
+
         }
 
         private void WriteToConsoleAndPromptToContinue(string format, params object[] args)

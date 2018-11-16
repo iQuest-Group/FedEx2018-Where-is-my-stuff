@@ -25,7 +25,7 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://fedex2018-wims.documents.azure.com:443/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://fedex2018iquesttibi.documents.azure.com:443/")]
         public string AzureCosmosDBEndpointUrl {
             get {
                 return ((string)(this["AzureCosmosDBEndpointUrl"]));
@@ -43,8 +43,8 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("j0EEpoNHkH7wfNACiuxT5eucjCju0vOSyl5aTVuwlpfRY2hRylTbf0OjNtGEMkcpRhnB3jL1JhuwLrNLp" +
-            "tfnbQ==")]
+        [global::System.Configuration.DefaultSettingValueAttribute("rgCBaRtqalPfdtx2CfeH0avCDEQRDvohq44SlrhTPEt2vcnGTuQfqlNjOcBv2SXcbgmNuA9dxTfrhXJPk" +
+            "jAqaQ==")]
         public string AzureCosmodBDPrimaryKey {
             get {
                 return ((string)(this["AzureCosmodBDPrimaryKey"]));

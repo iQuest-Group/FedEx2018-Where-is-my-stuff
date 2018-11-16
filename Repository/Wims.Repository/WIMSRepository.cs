@@ -38,24 +38,17 @@ namespace WIMS.Repository
                  new DocumentCollection { Id = CollectionName });
         }
 
-        protected async Task CreateEntityIfNotExists(T entity)
+        public async Task<T> CreateEntityIfNotExists(T entity)
         {
-            try
+            T res = GetEntity(entity.ID);
+            if (res == null)
             {
-                await docClient.ReadDocumentAsync(CreateDocumentUri(entity));
+                Uri documentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName);
+                Document doc = await docClient.CreateDocumentAsync(documentCollectionUri, entity);
+                res = (T)(dynamic)doc;
             }
-            catch (DocumentClientException de)
-            {
-                if (de.StatusCode == HttpStatusCode.NotFound)
-                {
-                    Uri documentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName);
-                    await docClient.CreateDocumentAsync(documentCollectionUri, entity);
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
+            return res;
         }
 
         protected Uri CreateDocumentUri(T entity)
@@ -81,7 +74,7 @@ namespace WIMS.Repository
             return query.ToList();
         }
 
-        public T GetEntity(Guid id)
+        public T GetEntity(string id)
         {
             FeedOptions queryOptions = new FeedOptions { MaxItemCount = -1 };
 
@@ -89,7 +82,7 @@ namespace WIMS.Repository
                     UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName), queryOptions)
                     .Where(i => i.ID == id);
 
-            return query.Take(1).AsEnumerable().First();
+            return query.Any() ? query.First() : null;
         }
     }
 }
