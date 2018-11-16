@@ -18,6 +18,7 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
         private Timer fileCheckerTimer;
         private HashSet<string> tagCodesSet;
         private Inventory inventory;
+        private bool filesCurrentlyProcessed;
 
         internal RecognizedTagsFilesProcessor(string inventoryNameParam)
         {
@@ -57,6 +58,7 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
             }
             catch (Exception e)
             {
+
                 Exception baseException = e.GetBaseException();
                 WriteToConsoleAndPromptToContinue("Error: {0}, Message: {1}", e.Message, baseException.Message);
             }
@@ -64,21 +66,37 @@ namespace iQuest.Fedex2018.Winms.TagsFilesProcessor
 
         private void ProcessFiles(object sender, ElapsedEventArgs e)
         {
-            if (!File.Exists(Path.Combine(Settings.Default.TagsFilesFolder, 
-                Settings.Default.EndInventoryFileName)))
+            try
             {
-                Console.WriteLine("No end inventory file detected");
-                return;
+                if (filesCurrentlyProcessed)
+                {
+                    return;
+                }
+
+                filesCurrentlyProcessed = true;
+
+                if (!File.Exists(Path.Combine(Settings.Default.TagsFilesFolder,
+                    Settings.Default.EndInventoryFileName)))
+                {
+                    Console.WriteLine("No end inventory file detected");
+                    return;
+                }
+                Console.WriteLine("Inventory file detected");
+
+                GatherTagsFromFiles();
+
+                Task.WaitAll(UpdateInvetory());
+                Console.WriteLine("Files saved to Azure Cosmos DB");
+
+                DeleteFiles();
+                Console.WriteLine("Tag files deleted");
+                filesCurrentlyProcessed = false;
             }
-            Console.WriteLine("Inventory file detected");
-
-            GatherTagsFromFiles();
-
-            Task.WaitAll(UpdateInvetory());
-            Console.WriteLine("Files saved to Azure Cosmos DB");
-
-            DeleteFiles();
-            Console.WriteLine("Tag files deleted");
+            catch (Exception exc)
+            {
+                Console.WriteLine(string.Format("Exception ocurred during files processing: {0}.", exc.Message));
+                filesCurrentlyProcessed = false;
+            }
         }
 
         private void GatherTagsFromFiles()

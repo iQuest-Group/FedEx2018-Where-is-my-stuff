@@ -9,6 +9,14 @@ namespace WIMS.Repository
         public DateTime? EndDate { get; set; }
         public String[] ProductTags { get; set; }
         public InventoryStatus Status { get; set; }
+
+        public void EnsureProductTags()
+        {
+            if (ProductTags == null)
+            {
+                ProductTags = new string[0];
+            }
+        }
     }
 
     public enum InventoryStatus

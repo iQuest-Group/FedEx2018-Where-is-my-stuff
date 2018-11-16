@@ -3,7 +3,6 @@ using Microsoft.Azure.Documents.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace WIMS.Repository
@@ -34,6 +33,7 @@ namespace WIMS.Repository
         public async Task EnsureCollection()
         {
             Uri databaseUri = UriFactory.CreateDatabaseUri(databaseName);
+
             await docClient.CreateDocumentCollectionIfNotExistsAsync(databaseUri,
                  new DocumentCollection { Id = CollectionName });
         }
@@ -44,9 +44,10 @@ namespace WIMS.Repository
             if (res == null)
             {
                 Uri documentCollectionUri = UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName);
-                Document doc = await docClient.CreateDocumentAsync(documentCollectionUri, entity);
-                res = (T)(dynamic)doc;
+                await docClient.CreateDocumentAsync(documentCollectionUri, entity);
+                res = GetEntity(entity.ID);
             }
+
 
             return res;
         }
@@ -82,7 +83,7 @@ namespace WIMS.Repository
                     UriFactory.CreateDocumentCollectionUri(databaseName, CollectionName), queryOptions)
                     .Where(i => i.ID == id);
 
-            return query.Any() ? query.First() : null;
+            return query.Count() > 0 ? query.Take(1).AsEnumerable().First() : null;
         }
     }
 }

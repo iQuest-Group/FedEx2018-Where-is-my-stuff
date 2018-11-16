@@ -34,7 +34,7 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Inventory")]
+        [global::System.Configuration.DefaultSettingValueAttribute("StockManagement")]
         public string AzureCosmosDatabaseName {
             get {
                 return ((string)(this["AzureCosmosDatabaseName"]));

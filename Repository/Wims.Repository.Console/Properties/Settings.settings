@@ -6,7 +6,7 @@
       <Value Profile="(Default)">https://fedex2018iquesttibi.documents.azure.com:443/</Value>
     </Setting>
     <Setting Name="AzureCosmosDatabaseName" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Inventory</Value>
+      <Value Profile="(Default)">StockManagement</Value>
     </Setting>
     <Setting Name="AzureCosmodBDPrimaryKey" Type="System.String" Scope="Application">
       <Value Profile="(Default)">rgCBaRtqalPfdtx2CfeH0avCDEQRDvohq44SlrhTPEt2vcnGTuQfqlNjOcBv2SXcbgmNuA9dxTfrhXJPkjAqaQ==</Value>

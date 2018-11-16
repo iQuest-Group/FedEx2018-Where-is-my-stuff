@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +16,18 @@ namespace WIMS.Repository
 
         public async Task AddNewTagsToInventory(Inventory inventory, string[] newTags)
         {
-            inventory.ProductTags = inventory.ProductTags.Concat(newTags).ToArray();
+            inventory.EnsureProductTags();
+            HashSet<string> tagsSet = new HashSet<string>();
+
+            foreach (string tag in inventory.ProductTags)
+            {
+                tagsSet.Add(tag);
+            }
+            foreach (string tag in newTags)
+            {
+                tagsSet.Add(tag);
+            }
+            inventory.ProductTags = tagsSet.ToArray();
             await docClient.ReplaceDocumentAsync(CreateDocumentUri(inventory), inventory);
         }
 
