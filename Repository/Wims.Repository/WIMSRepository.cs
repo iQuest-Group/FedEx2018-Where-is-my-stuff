@@ -31,7 +31,7 @@ namespace WIMS.Repository
         {
             await this.docClient.CreateDatabaseIfNotExistsAsync(new Database { Id = this.DatabaseName });
         }
-        public async Task CreateCollection(string CollectionName)
+        public async Task EnsureCollection(string CollectionName)
         {
             await this.docClient.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(this.DatabaseName), new DocumentCollection { Id = CollectionName});
         }

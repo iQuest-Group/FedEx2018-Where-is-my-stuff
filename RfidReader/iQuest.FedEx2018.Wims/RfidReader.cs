@@ -9,6 +9,8 @@ namespace iQuest.FedEx2018.Wims
 {
     internal class RfidReader : IDisposable
     {
+        private const string endInventoryFileName = "endInventory.txt";
+
         private readonly CRRU4 reader;
         private bool disposed = false;
         private readonly HashSet<string> tagsRead = new HashSet<string>();
@@ -73,7 +75,7 @@ namespace iQuest.FedEx2018.Wims
         internal void Save()
         {
             string fileName = string.Format("Tags {0}.txt", DateTime.Now.ToString("dd-mm-yyyy hh_mm_ss ffff"));
-            string filePath = Path.Combine(Settings.Default.TagsReportFolder, fileName);
+            string filePath = GetFilePath(fileName);
 
             try
             {
@@ -90,6 +92,11 @@ namespace iQuest.FedEx2018.Wims
             }
         }
 
+        private string GetFilePath(string fileName)
+        {
+            return Path.Combine(Settings.Default.TagsReportFolder, fileName);
+        }
+
         public void Dispose()
         {
             Dispose(true);
@@ -104,6 +111,18 @@ namespace iQuest.FedEx2018.Wims
             if (disposing && reader != null)
             {
                 reader.DisconnectReader();
+                string endInventoryFilePath = GetFilePath(endInventoryFileName);
+
+                try
+                {
+                    File.WriteAllText(endInventoryFilePath, "");
+                    Console.WriteLine(string.Format("Endinvontory signaled with '{0}'", endInventoryFilePath));
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(string.Format("Exception during screating end inventory file: {0}",
+                        exc.Message));
+                }
             }
 
             disposed = true;

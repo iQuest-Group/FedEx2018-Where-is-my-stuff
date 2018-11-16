@@ -7,7 +7,7 @@
     <ProjectGuid>{123028F2-F35A-462E-A8BF-380A599422AE}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>CosmosDBGettingStarted_WIMS</RootNamespace>
-    <AssemblyName>CosmosDBGettingStarted_WIMS</AssemblyName>
+    <AssemblyName>iQuest.Fedex2018.Winms.TagsFilesProcessor</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -74,6 +74,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RecognizedTagsFilesProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -12,7 +12,7 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -29,6 +29,34 @@ namespace CosmosDBGettingStarted_WIMS.Properties {
         public string InventoryName {
             get {
                 return ((string)(this["InventoryName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://fedex2018-wims.documents.azure.com:443/")]
+        public string AzureCosmosDBEndpointUrl {
+            get {
+                return ((string)(this["AzureCosmosDBEndpointUrl"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Inventory")]
+        public string AzureCosmosDatabaseName {
+            get {
+                return ((string)(this["AzureCosmosDatabaseName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("j0EEpoNHkH7wfNACiuxT5eucjCju0vOSyl5aTVuwlpfRY2hRylTbf0OjNtGEMkcpRhnB3jL1JhuwLrNLp" +
+            "tfnbQ==")]
+        public string AzureCosmodBDPrimaryKey {
+            get {
+                return ((string)(this["AzureCosmodBDPrimaryKey"]));
             }
         }
     }

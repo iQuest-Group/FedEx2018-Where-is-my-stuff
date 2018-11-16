@@ -2,7 +2,7 @@
 
 namespace iQuest.FedEx2018.Wims
 {
-    class Program
+    static class Program
     {
         private static readonly string helpString = "Type 's' to save data, x for exit";
 
