@@ -4,12 +4,12 @@
     "Description": "Office desk",
     "Stock": [
       {
-        "ProductTag": "Desk Tag 1",
+        "ProductTag": "E2004000840F018013109343",
         "CreateDate": "2018-11-16",
         "id": "a6990a91-498c-46fd-a113-64c292164b4c"
       },
       {
-        "ProductTag": "Desk Tag 2",
+        "ProductTag": "E20020638611002912908DB9",
         "CreateDate": "2018-11-16",
         "id": "9c896047-7d64-4245-bb2e-6a9c680b12a4"
       }
@@ -21,17 +21,17 @@
     "Description": "Office chair",
     "Stock": [
       {
-        "ProductTag": "Chair Tag 1",
+        "ProductTag": "E2004000840F0140131092F3",
         "CreateDate": "2018-11-16",
         "id": "547a20d8-efc9-4c8e-8bc5-8c01e285ee87"
       },
       {
-        "ProductTag": "Chair Tag 2",
+        "ProductTag": "E2004000840F0101131092AB",
         "CreateDate": "2018-11-16",
         "id": "8cb1226e-4741-4067-b094-1997d377ff2a"
       },
       {
-        "ProductTag": "Chair Tag 3",
+        "ProductTag": "E2004000840F010113109AAA",
         "CreateDate": "2018-11-16",
         "id": "7f51cf17-b3de-4375-b3bb-639a244b349b"
       }

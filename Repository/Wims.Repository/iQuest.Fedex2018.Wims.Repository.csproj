@@ -15,13 +15,4 @@
     </Reference>
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="DemoData\Inventory.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="DemoData\Products.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>

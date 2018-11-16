@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="iQuest.Fedex2018.Wims.StockProvisioner.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AzureCosmosDBEndpointUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://fedex2018iquesttibi.documents.azure.com:443/</Value>
+    </Setting>
+    <Setting Name="AzureCosmosDatabaseName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">StockManagement</Value>
+    </Setting>
+    <Setting Name="AzureCosmodBDPrimaryKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">rgCBaRtqalPfdtx2CfeH0avCDEQRDvohq44SlrhTPEt2vcnGTuQfqlNjOcBv2SXcbgmNuA9dxTfrhXJPkjAqaQ==</Value>
+    </Setting>
+    <Setting Name="ProductsJsonFilePath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">DemoData\\Products.json</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
